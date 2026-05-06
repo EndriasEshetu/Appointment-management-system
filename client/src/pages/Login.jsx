@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useLogin } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const loginMutation = useLogin();
 
   const handleSubmit = (e) => {
@@ -43,9 +45,7 @@ const Login = () => {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+                <Mail className="h-4 w-4 text-gray-400" />
               </div>
               <input
                 type="email"
@@ -65,23 +65,25 @@ const Login = () => {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+                <Lock className="h-4 w-4 text-gray-400" />
               </div>
               <input
-                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                type={showPassword ? "text" : "password"}
                 className="w-full pl-10 pr-10 py-2.5 bg-[#111827] border border-gray-700 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 text-sm text-gray-200 placeholder-gray-500 transition-colors"
                 placeholder="Enter your password"
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
-                <svg className="h-4 w-4 text-gray-400 hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
+              <div 
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-gray-400 hover:text-gray-300" />
+                ) : (
+                  <Eye className="h-4 w-4 text-gray-400 hover:text-gray-300" />
+                )}
               </div>
             </div>
           </div>
