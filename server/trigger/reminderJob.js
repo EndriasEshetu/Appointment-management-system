@@ -27,7 +27,7 @@ export const reminderJob = schedules.task({
     try {
       // 1. Query for upcoming appointments
       const appointments = await Appointment.find({
-        date: {
+        appointmentDateTime: {
           $gte: now,
           $lte: next24Hours,
         },
@@ -46,13 +46,16 @@ export const reminderJob = schedules.task({
           await sendReminderEmail({
             to: appt.customerId.email,
             customerName: appt.customerId.name,
-            date: new Date(appt.date).toLocaleDateString("en-US", {
+            date: new Date(appt.appointmentDateTime).toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
               month: "long",
               day: "numeric",
             }),
-            time: appt.time,
+            time: new Date(appt.appointmentDateTime).toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+            }),
             businessName: appt.businessId.name,
           });
 

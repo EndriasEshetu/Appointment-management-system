@@ -27,21 +27,24 @@ const MyAppointments = () => {
     });
   };
 
-  const formatDate = (dateStr) =>
-    new Date(dateStr).toLocaleDateString("en-US", {
+  const formatDateTime = (dateStr) => {
+    return new Date(dateStr).toLocaleString("en-US", {
       weekday: "short",
       year: "numeric",
       month: "short",
       day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
     });
+  };
 
   // Split into upcoming and past
   const now = new Date();
   const upcoming = appointments.filter(
-    (a) => new Date(a.date) >= now && a.status !== "cancelled"
+    (a) => new Date(a.appointmentDateTime) >= now && a.status !== "cancelled"
   );
   const past = appointments.filter(
-    (a) => new Date(a.date) < now || a.status === "cancelled"
+    (a) => new Date(a.appointmentDateTime) < now || a.status === "cancelled"
   );
 
   return (
@@ -102,10 +105,7 @@ const MyAppointments = () => {
                         {appt.businessId?.name || "Unknown Business"}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {formatDate(appt.date)} at{" "}
-                        <span className="font-medium text-gray-700">
-                          {appt.time}
-                        </span>
+                        {formatDateTime(appt.appointmentDateTime)}
                       </p>
                       {appt.notes && (
                         <p className="text-xs text-gray-400 italic">
@@ -156,7 +156,7 @@ const MyAppointments = () => {
                         {appt.businessId?.name || "Unknown Business"}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {formatDate(appt.date)} at {appt.time}
+                        {formatDateTime(appt.appointmentDateTime)}
                       </p>
                       {appt.notes && (
                         <p className="text-xs text-gray-400 italic">

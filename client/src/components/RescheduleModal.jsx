@@ -2,14 +2,22 @@ import { useState } from "react";
 import { useRescheduleAppointment } from "../hooks/useCustomer";
 
 const RescheduleModal = ({ appointment, onClose }) => {
+  // Parse existing appointmentDateTime
+  const existingDate = new Date(appointment.appointmentDateTime);
+  
   const [date, setDate] = useState("");
-  const [time, setTime] = useState(appointment.time || "");
+  const [time, setTime] = useState("");
   const rescheduleMutation = useRescheduleAppointment();
 
   const handleReschedule = (e) => {
     e.preventDefault();
+    
+    // Combine date and time
+    const dateTimeString = `${date}T${time}:00`;
+    const appointmentDateTime = new Date(dateTimeString);
+
     rescheduleMutation.mutate(
-      { id: appointment._id, date, time },
+      { id: appointment._id, appointmentDateTime },
       {
         onSuccess: () => {
           setTimeout(onClose, 1200);
@@ -61,15 +69,12 @@ const RescheduleModal = ({ appointment, onClose }) => {
               </span>
             </div>
             <div className="flex justify-between text-sm mt-1">
-              <span className="text-gray-500">Date</span>
+              <span className="text-gray-500">Date & Time</span>
               <span className="font-medium text-gray-800">
-                {new Date(appointment.date).toLocaleDateString()}
-              </span>
-            </div>
-            <div className="flex justify-between text-sm mt-1">
-              <span className="text-gray-500">Time</span>
-              <span className="font-medium text-gray-800">
-                {appointment.time}
+                {existingDate.toLocaleString([], {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                })}
               </span>
             </div>
           </div>

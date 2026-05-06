@@ -38,6 +38,13 @@ const AdminDashboard = () => {
     });
   };
 
+  const formatTime = (dateStr) => {
+    return new Date(dateStr).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  };
+
   return (
     <div>
       {/* ── Header ───────────────────────────────── */}
@@ -153,9 +160,11 @@ const AdminDashboard = () => {
                     {appt.customerId?.email || "—"}
                   </td>
                   <td className="px-6 py-4 text-gray-600">
-                    {formatDate(appt.date)}
+                    {formatDate(appt.appointmentDateTime)}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{appt.time}</td>
+                  <td className="px-6 py-4 text-gray-600">
+                    {formatTime(appt.appointmentDateTime)}
+                  </td>
                   <td className="px-6 py-4">
                     <StatusBadge status={appt.status} />
                   </td>

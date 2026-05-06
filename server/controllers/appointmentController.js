@@ -9,7 +9,7 @@ export const getBusinessAppointments = async (req, res) => {
       businessId: req.user._id,
     })
       .populate("customerId", "name email") // populate customer info
-      .sort({ date: 1, time: 1 }); // upcoming first
+      .sort({ appointmentDateTime: 1 }); // upcoming first
 
     res.json(appointments);
   } catch (error) {
@@ -67,20 +67,24 @@ export const updateAppointmentStatus = async (req, res) => {
 // @access  Private (customer)
 export const createAppointment = async (req, res) => {
   try {
-    const { businessId, date, time, notes } = req.body;
+    const { businessId, appointmentDateTime, notes } = req.body;
 
-    if (!businessId || !date || !time) {
+    if (!businessId || !appointmentDateTime) {
       return res
         .status(400)
-        .json({ message: "businessId, date and time are required" });
+        .json({ message: "businessId and appointmentDateTime are required" });
+    }
+
+    const parsedDateTime = new Date(appointmentDateTime);
+    if (isNaN(parsedDateTime.getTime())) {
+      return res.status(400).json({ message: "Invalid appointmentDateTime" });
     }
 
     // Prevent double-booking: check if same business already has
-    // an appointment at the same date + time that is NOT cancelled
+    // an appointment at the exact same DateTime that is NOT cancelled
     const conflict = await Appointment.findOne({
       businessId,
-      date: new Date(date),
-      time,
+      appointmentDateTime: parsedDateTime,
       status: { $ne: "cancelled" },
     });
 
@@ -93,8 +97,7 @@ export const createAppointment = async (req, res) => {
     const appointment = await Appointment.create({
       customerId: req.user._id,
       businessId,
-      date: new Date(date),
-      time,
+      appointmentDateTime: parsedDateTime,
       status: "pending",
       notes: notes || "",
     });
@@ -117,7 +120,7 @@ export const getMyAppointments = async (req, res) => {
       customerId: req.user._id,
     })
       .populate("businessId", "name email")
-      .sort({ date: 1, time: 1 });
+      .sort({ appointmentDateTime: 1 });
 
     res.json(appointments);
   } catch (error) {
@@ -131,12 +134,17 @@ export const getMyAppointments = async (req, res) => {
 // @access  Private (customer, owner only)
 export const rescheduleAppointment = async (req, res) => {
   try {
-    const { date, time } = req.body;
+    const { appointmentDateTime } = req.body;
 
-    if (!date || !time) {
+    if (!appointmentDateTime) {
       return res
         .status(400)
-        .json({ message: "New date and time are required" });
+        .json({ message: "New appointmentDateTime is required" });
+    }
+
+    const parsedDateTime = new Date(appointmentDateTime);
+    if (isNaN(parsedDateTime.getTime())) {
+      return res.status(400).json({ message: "Invalid appointmentDateTime" });
     }
 
     const appointment = await Appointment.findById(req.params.id);
@@ -162,8 +170,7 @@ export const rescheduleAppointment = async (req, res) => {
     // Check for conflicts at the new time
     const conflict = await Appointment.findOne({
       businessId: appointment.businessId,
-      date: new Date(date),
-      time,
+      appointmentDateTime: parsedDateTime,
       status: { $ne: "cancelled" },
       _id: { $ne: appointment._id },
     });
@@ -174,8 +181,7 @@ export const rescheduleAppointment = async (req, res) => {
         .json({ message: "The new time slot is already booked" });
     }
 
-    appointment.date = new Date(date);
-    appointment.time = time;
+    appointment.appointmentDateTime = parsedDateTime;
     appointment.status = "pending"; // reset to pending after reschedule
     const updated = await appointment.save();
 

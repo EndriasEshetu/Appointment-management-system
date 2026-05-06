@@ -6,11 +6,14 @@ const BookingModal = ({ slot, selectedDate, onClose }) => {
   const bookMutation = useBookAppointment();
 
   const handleBook = () => {
+    // Combine date and time into a single Date object
+    const dateTimeString = `${selectedDate}T${slot.startTime}:00`;
+    const appointmentDateTime = new Date(dateTimeString);
+
     bookMutation.mutate(
       {
         businessId: slot.businessId._id,
-        date: selectedDate,
-        time: slot.startTime,
+        appointmentDateTime,
         notes,
       },
       {
