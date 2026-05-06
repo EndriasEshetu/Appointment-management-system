@@ -29,11 +29,12 @@ const BookingCalendar = () => {
     const generatedEvents = [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const startOfCurrentWeek = startOfWeek(today);
 
-    // Generate slots for the next 4 weeks (28 days)
+    // Generate slots for 4 weeks (28 days) starting from the beginning of the week
     for (let i = 0; i < 28; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
+      const date = new Date(startOfCurrentWeek);
+      date.setDate(startOfCurrentWeek.getDate() + i);
       const dayOfWeek = date.getDay();
 
       // Find templates for this day of the week
@@ -49,7 +50,7 @@ const BookingCalendar = () => {
         const endDate = new Date(date);
         endDate.setHours(endHour, endMin, 0, 0);
 
-        // Don't show past slots for today
+        // Only show future slots
         if (startDate > new Date()) {
           generatedEvents.push({
             title: slot.businessId?.name || "Available",
@@ -65,17 +66,25 @@ const BookingCalendar = () => {
   }, [slots]);
 
   const handleSelectEvent = (event) => {
-    const dateStr = event.start.toISOString().split("T")[0];
+    // Prevent booking past slots
+    if (event.start < new Date()) {
+      alert("This time slot is in the past. Please select a future time slot.");
+      return;
+    }
+
+    // Fix date mismatch: format local date instead of using toISOString()
+    const dateStr = format(event.start, "yyyy-MM-dd");
     setSelectedSlot(event.resource);
     setSelectedDate(dateStr);
   };
 
   // Custom event styling
   const eventStyleGetter = (event) => {
+    const isPast = event.start < new Date();
     return {
       style: {
-        backgroundColor: "#10B981", // Emerald 500
-        borderColor: "#059669", // Emerald 600
+        backgroundColor: isPast ? "#9CA3AF" : "#10B981", // Gray 400 if past, Emerald 500 if future
+        borderColor: isPast ? "#6B7280" : "#059669",
         color: "white",
         borderRadius: "4px",
       },
