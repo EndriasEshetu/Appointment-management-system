@@ -3,16 +3,18 @@ import {
   getMyAvailability,
   createAvailability,
   updateAvailability,
+  getPublicAvailability,
 } from "../controllers/availabilityController.js";
 import { protect, adminOnly } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// All routes require login + admin role
-router.use(protect, adminOnly);
+// Public route — any authenticated user can see available slots
+router.get("/", protect, getPublicAvailability);
 
-router.get("/me", getMyAvailability);
-router.post("/", createAvailability);
-router.put("/:id", updateAvailability);
+// Admin-only routes below
+router.get("/me", protect, adminOnly, getMyAvailability);
+router.post("/", protect, adminOnly, createAvailability);
+router.put("/:id", protect, adminOnly, updateAvailability);
 
 export default router;

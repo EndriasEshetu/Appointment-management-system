@@ -5,6 +5,9 @@ import Register from "./pages/Register";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AvailabilityManager from "./pages/AvailabilityManager";
+import CustomerLayout from "./components/CustomerLayout";
+import BookingCalendar from "./pages/BookingCalendar";
+import MyAppointments from "./pages/MyAppointments";
 
 function App() {
   const { user } = useAuthStore();
@@ -17,7 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* ── Admin routes (nested under AdminLayout) ─ */}
+          {/* ── Admin routes ──────────────────────── */}
           <Route
             path="/admin"
             element={
@@ -33,7 +36,23 @@ function App() {
             <Route path="availability" element={<AvailabilityManager />} />
           </Route>
 
-          {/* ── Root redirect ─────────────────────── */}
+          {/* ── Customer routes ───────────────────── */}
+          <Route
+            path="/customer"
+            element={
+              user && user.role === "customer" ? (
+                <CustomerLayout />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          >
+            <Route index element={<Navigate to="book" replace />} />
+            <Route path="book" element={<BookingCalendar />} />
+            <Route path="my-appointments" element={<MyAppointments />} />
+          </Route>
+
+          {/* ── Root redirect based on role ────────── */}
           <Route
             path="/"
             element={
@@ -41,23 +60,7 @@ function App() {
                 user.role === "admin" ? (
                   <Navigate to="/admin/dashboard" />
                 ) : (
-                  <div className="flex flex-col items-center justify-center min-h-screen">
-                    <h1 className="text-3xl font-bold text-gray-800">
-                      Welcome, {user.name}!
-                    </h1>
-                    <p className="text-gray-600 mt-2">
-                      You are logged in as:{" "}
-                      <span className="font-semibold text-blue-600">
-                        {user.role}
-                      </span>
-                    </p>
-                    <button
-                      onClick={() => useAuthStore.getState().logout()}
-                      className="mt-6 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                    >
-                      Logout
-                    </button>
-                  </div>
+                  <Navigate to="/customer/book" />
                 )
               ) : (
                 <Navigate to="/login" />

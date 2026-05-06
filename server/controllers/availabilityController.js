@@ -108,3 +108,19 @@ export const updateAvailability = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+// @desc    Get all available slots (for customers to browse)
+// @route   GET /api/availability
+// @access  Private (any authenticated user)
+export const getPublicAvailability = async (req, res) => {
+  try {
+    const slots = await Availability.find({ isAvailable: true })
+      .populate("businessId", "name email")
+      .sort({ dayOfWeek: 1, startTime: 1 });
+
+    res.json(slots);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
