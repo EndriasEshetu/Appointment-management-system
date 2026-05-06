@@ -101,17 +101,17 @@ const AvailabilityManager = () => {
       {/* ── Header ───────────────────────────────── */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-white tracking-wide">
             Availability Management
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-400 mt-1">
             Manage your weekly working hours
           </p>
         </div>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-[#10b981] text-white text-sm font-medium rounded-lg hover:bg-emerald-600 transition-colors"
           >
             + Add Slot
           </button>
@@ -134,23 +134,23 @@ const AvailabilityManager = () => {
       {showForm && (
         <form
           onSubmit={handleSubmit}
-          className="mb-6 p-6 bg-white rounded-lg shadow-sm border border-gray-200"
+          className="mb-6 p-6 bg-[#1f2937] rounded-xl shadow-xl border border-gray-700"
         >
-          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          <h2 className="text-lg font-semibold text-white tracking-wide mb-4">
             {editingId ? "Edit Slot" : "Add New Slot"}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Day */}
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Day of Week
               </label>
               <select
                 name="dayOfWeek"
                 value={form.dayOfWeek}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-[#111827] border border-gray-700 text-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981]"
               >
                 {DAYS.map((day, i) => (
                   <option key={i} value={i}>
@@ -162,7 +162,7 @@ const AvailabilityManager = () => {
 
             {/* Start time */}
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Start Time
               </label>
               <input
@@ -170,13 +170,13 @@ const AvailabilityManager = () => {
                 name="startTime"
                 value={form.startTime}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-[#111827] border border-gray-700 text-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981] [color-scheme:dark]"
               />
             </div>
 
             {/* End time */}
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 End Time
               </label>
               <input
@@ -184,7 +184,7 @@ const AvailabilityManager = () => {
                 name="endTime"
                 value={form.endTime}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 bg-[#111827] border border-gray-700 text-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981] [color-scheme:dark]"
               />
             </div>
 
@@ -196,18 +196,18 @@ const AvailabilityManager = () => {
                   name="isAvailable"
                   checked={form.isAvailable}
                   onChange={handleChange}
-                  className="w-4 h-4 text-blue-600 rounded"
+                  className="w-4 h-4 text-[#10b981] bg-[#111827] border-gray-700 rounded focus:ring-[#10b981] focus:ring-offset-gray-900"
                 />
-                <span className="text-sm text-gray-700">Available</span>
+                <span className="text-sm text-gray-300">Available</span>
               </label>
             </div>
           </div>
 
-          <div className="flex gap-3 mt-5">
+          <div className="flex gap-3 mt-6">
             <button
               type="submit"
               disabled={isMutating}
-              className="px-5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="px-5 py-2 bg-[#10b981] text-white text-sm font-medium rounded-lg hover:bg-emerald-600 disabled:opacity-50 transition-colors shadow-lg shadow-emerald-900/20"
             >
               {isMutating
                 ? "Saving..."
@@ -218,7 +218,7 @@ const AvailabilityManager = () => {
             <button
               type="button"
               onClick={resetForm}
-              className="px-5 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
+              className="px-5 py-2 bg-gray-700 text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>
@@ -228,36 +228,36 @@ const AvailabilityManager = () => {
 
       {/* ── Slots List ───────────────────────────── */}
       {isLoading ? (
-        <div className="text-center py-12 text-gray-500">Loading slots...</div>
+        <div className="text-center py-12 text-gray-400">Loading slots...</div>
       ) : isError ? (
-        <div className="text-center py-12 text-red-500">
+        <div className="text-center py-12 text-red-400">
           Failed to load availability data.
         </div>
       ) : slots.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-200">
-          <p className="text-gray-500">No availability slots yet.</p>
-          <p className="text-sm text-gray-400 mt-1">
+        <div className="text-center py-12 bg-[#1f2937] rounded-xl shadow-xl border border-gray-800">
+          <p className="text-gray-300">No availability slots yet.</p>
+          <p className="text-sm text-gray-500 mt-1">
             Click "Add Slot" to define your working hours.
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-[#1f2937] rounded-xl shadow-xl border border-gray-800 overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+              <tr className="bg-[#111827] border-b border-gray-800">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Day
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Start Time
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   End Time
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Status
                 </th>
-                <th className="text-right px-6 py-3 font-semibold text-gray-600">
+                <th className="text-right px-6 py-4 font-semibold text-gray-300">
                   Actions
                 </th>
               </tr>
@@ -266,34 +266,34 @@ const AvailabilityManager = () => {
               {slots.map((slot) => (
                 <tr
                   key={slot._id}
-                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                  className="border-b border-gray-800 hover:bg-[#374151]/50 transition-colors"
                 >
-                  <td className="px-6 py-4 font-medium text-gray-800">
+                  <td className="px-6 py-4 font-medium text-white">
                     {DAYS[slot.dayOfWeek]}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{slot.startTime}</td>
-                  <td className="px-6 py-4 text-gray-600">{slot.endTime}</td>
+                  <td className="px-6 py-4 text-gray-400">{slot.startTime}</td>
+                  <td className="px-6 py-4 text-gray-400">{slot.endTime}</td>
                   <td className="px-6 py-4">
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                         slot.isAvailable
-                          ? "bg-green-100 text-green-700"
-                          : "bg-gray-100 text-gray-500"
+                          ? "bg-[#10b981]/20 text-[#10b981]"
+                          : "bg-gray-800 text-gray-400"
                       }`}
                     >
                       {slot.isAvailable ? "Available" : "Unavailable"}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-right space-x-2">
+                  <td className="px-6 py-4 text-right space-x-2 flex justify-end">
                     <button
                       onClick={() => toggleAvailability(slot)}
-                      className="px-3 py-1 text-xs font-medium rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                      className="px-3 py-1.5 text-xs font-medium rounded-md bg-[#111827] border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors"
                     >
                       {slot.isAvailable ? "Disable" : "Enable"}
                     </button>
                     <button
                       onClick={() => startEdit(slot)}
-                      className="px-3 py-1 text-xs font-medium rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
+                      className="px-3 py-1.5 text-xs font-medium rounded-md bg-blue-900/30 border border-transparent hover:border-blue-800 text-blue-400 hover:bg-blue-900/50 transition-colors"
                     >
                       Edit
                     </button>

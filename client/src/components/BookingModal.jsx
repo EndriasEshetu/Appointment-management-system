@@ -28,11 +28,11 @@ const BookingModal = ({ slot, selectedDate, onClose }) => {
   const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-[#1f2937] rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden border border-gray-700">
         {/* Header */}
-        <div className="px-6 py-4 bg-blue-600">
-          <h2 className="text-lg font-bold text-white">Book Appointment</h2>
+        <div className="px-6 py-4 bg-[#10b981]">
+          <h2 className="text-lg font-bold text-white tracking-wide">Book Appointment</h2>
         </div>
 
         <div className="p-6 space-y-4">
@@ -51,26 +51,26 @@ const BookingModal = ({ slot, selectedDate, onClose }) => {
           )}
 
           {/* Appointment summary */}
-          <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
+          <div className="space-y-3 bg-[#111827] p-4 rounded-lg border border-gray-800">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Business</span>
-              <span className="font-medium text-gray-800">
+              <span className="text-gray-400">Business</span>
+              <span className="font-medium text-white">
                 {slot.businessId?.name || "Unknown"}
               </span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Day</span>
-              <span className="font-medium text-gray-800">
+              <span className="text-gray-400">Day</span>
+              <span className="font-medium text-white">
                 {DAYS[slot.dayOfWeek]}
               </span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Date</span>
-              <span className="font-medium text-gray-800">{selectedDate}</span>
+              <span className="text-gray-400">Date</span>
+              <span className="font-medium text-white">{selectedDate}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Time</span>
-              <span className="font-medium text-gray-800">
+              <span className="text-gray-400">Time</span>
+              <span className="font-medium text-white">
                 {slot.startTime} – {slot.endTime}
               </span>
             </div>
@@ -78,14 +78,14 @@ const BookingModal = ({ slot, selectedDate, onClose }) => {
 
           {/* Notes */}
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Notes (optional)
             </label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full px-3 py-2 bg-[#111827] border border-gray-700 text-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981] resize-none"
               placeholder="Any special requests..."
             />
           </div>
@@ -95,14 +95,14 @@ const BookingModal = ({ slot, selectedDate, onClose }) => {
             <button
               onClick={handleBook}
               disabled={bookMutation.isPending || bookMutation.isSuccess}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="flex-1 px-4 py-2 bg-[#10b981] text-white text-sm font-medium rounded-lg hover:bg-emerald-600 disabled:opacity-50 transition-colors shadow-lg shadow-emerald-900/20"
             >
               {bookMutation.isPending ? "Booking..." : "Confirm Booking"}
             </button>
             <button
               onClick={onClose}
               disabled={bookMutation.isPending}
-              className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
+              className="flex-1 px-4 py-2 bg-gray-700 text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>

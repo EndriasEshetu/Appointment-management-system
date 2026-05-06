@@ -104,25 +104,25 @@ const BookingCalendar = () => {
 
   return (
     <div className="flex flex-col h-full min-h-[600px]">
-      {/* ── Header ───────────────────────────────── */}
+    
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Book an Appointment</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-white tracking-wide">Book an Appointment</h1>
+        <p className="text-sm text-gray-400 mt-1">
           Browse available time slots on the calendar and click to book.
         </p>
       </div>
 
-      {/* ── Calendar ────────────────────────── */}
+  
       {isLoading ? (
-        <div className="text-center py-16 text-gray-500 bg-white rounded-lg border border-gray-200">
+        <div className="text-center py-16 text-gray-400 bg-[#1f2937] rounded-xl border border-gray-800 shadow-xl">
           Loading available slots...
         </div>
       ) : isError ? (
-        <div className="text-center py-16 text-red-500 bg-white rounded-lg border border-gray-200">
+        <div className="text-center py-16 text-red-400 bg-[#1f2937] rounded-xl border border-gray-800 shadow-xl">
           Failed to load availability. Please try again.
         </div>
       ) : (
-        <div className="flex-1 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex-1 bg-[#1f2937] p-4 rounded-xl shadow-xl border border-gray-800 text-gray-200 [&_.rbc-calendar]:text-gray-200 [&_.rbc-btn-group>button]:text-gray-300 [&_.rbc-btn-group>button]:border-gray-700 [&_.rbc-btn-group>button:hover]:bg-gray-800 [&_.rbc-btn-group>.rbc-active]:bg-[#111827] [&_.rbc-btn-group>.rbc-active]:text-white [&_.rbc-toolbar-label]:font-semibold [&_.rbc-toolbar-label]:text-white [&_.rbc-header]:border-gray-700 [&_.rbc-header]:py-2 [&_.rbc-month-view]:border-gray-700 [&_.rbc-month-row]:border-gray-700 [&_.rbc-day-bg]:border-gray-700 [&_.rbc-off-range-bg]:bg-[#111827] [&_.rbc-today]:bg-blue-900/10 [&_.rbc-time-view]:border-gray-700 [&_.rbc-timeslot-group]:border-gray-700 [&_.rbc-time-content]:border-gray-700 [&_.rbc-time-header-content]:border-gray-700 [&_.rbc-day-slot_.rbc-time-slot]:border-gray-700/50">
           <Calendar
             localizer={localizer}
             events={events}
@@ -138,13 +138,11 @@ const BookingCalendar = () => {
             views={["month", "week", "day"]}
             step={30}
             timeslots={2}
-            min={new Date(0, 0, 0, 8, 0, 0)} // Start day at 8 AM
-            max={new Date(0, 0, 0, 20, 0, 0)} // End day at 8 PM
+            min={new Date(0, 0, 0, 8, 0, 0)} 
+            max={new Date(0, 0, 0, 20, 0, 0)}
           />
         </div>
       )}
-
-      {/* ── Booking modal ────────────────────────── */}
       {selectedSlot && (
         <BookingModal
           slot={selectedSlot}

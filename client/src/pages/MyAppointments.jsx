@@ -51,8 +51,8 @@ const MyAppointments = () => {
     <div>
       {/* ── Header ───────────────────────────────── */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">My Appointments</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-white tracking-wide">My Appointments</h1>
+        <p className="text-sm text-gray-400 mt-1">
           View, reschedule, or cancel your appointments
         </p>
       </div>
@@ -71,17 +71,17 @@ const MyAppointments = () => {
 
       {/* ── Loading / Error ──────────────────────── */}
       {isLoading ? (
-        <div className="text-center py-16 text-gray-500">
+        <div className="text-center py-16 text-gray-400">
           Loading your appointments...
         </div>
       ) : isError ? (
-        <div className="text-center py-16 text-red-500">
+        <div className="text-center py-16 text-red-400">
           Failed to load appointments.
         </div>
       ) : appointments.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-lg shadow-sm border border-gray-200">
-          <p className="text-gray-500 text-lg">No appointments yet.</p>
-          <p className="text-sm text-gray-400 mt-1">
+        <div className="text-center py-16 bg-[#1f2937] rounded-xl shadow-xl border border-gray-800">
+          <p className="text-gray-300 text-lg">No appointments yet.</p>
+          <p className="text-sm text-gray-500 mt-1">
             Go to "Book Appointment" to schedule one!
           </p>
         </div>
@@ -90,25 +90,25 @@ const MyAppointments = () => {
           {/* ── Upcoming appointments ─────────────── */}
           {upcoming.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-lg font-semibold text-gray-700 mb-3">
+              <h2 className="text-lg font-semibold text-white tracking-wide mb-3">
                 Upcoming ({upcoming.length})
               </h2>
               <div className="space-y-3">
                 {upcoming.map((appt) => (
                   <div
                     key={appt._id}
-                    className="bg-white rounded-lg shadow-sm border border-gray-200 p-5 flex flex-col sm:flex-row sm:items-center gap-4"
+                    className="bg-[#1f2937] rounded-xl shadow-xl border border-gray-800 p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-gray-700 transition-colors"
                   >
                     {/* Info */}
                     <div className="flex-1 space-y-1">
-                      <p className="text-sm font-semibold text-gray-800">
+                      <p className="text-sm font-semibold text-white">
                         {appt.businessId?.name || "Unknown Business"}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-400">
                         {formatDateTime(appt.appointmentDateTime)}
                       </p>
                       {appt.notes && (
-                        <p className="text-xs text-gray-400 italic">
+                        <p className="text-xs text-gray-500 italic mt-2 bg-[#111827] p-2 rounded-md">
                           "{appt.notes}"
                         </p>
                       )}
@@ -118,17 +118,17 @@ const MyAppointments = () => {
                     <StatusBadge status={appt.status} />
 
                     {/* Actions */}
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 mt-4 sm:mt-0">
                       <button
                         onClick={() => setRescheduleTarget(appt)}
-                        className="px-3 py-1.5 text-xs font-medium rounded-md bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition-colors"
+                        className="px-4 py-2 text-xs font-medium rounded-md bg-[#111827] text-blue-400 hover:bg-blue-900/30 border border-gray-700 hover:border-blue-800 transition-colors"
                       >
                         Reschedule
                       </button>
                       <button
                         onClick={() => handleCancel(appt._id)}
                         disabled={cancelMutation.isPending}
-                        className="px-3 py-1.5 text-xs font-medium rounded-md bg-red-100 text-red-700 hover:bg-red-200 disabled:opacity-50 transition-colors"
+                        className="px-4 py-2 text-xs font-medium rounded-md bg-[#111827] text-red-400 hover:bg-red-900/30 border border-gray-700 hover:border-red-800 transition-colors disabled:opacity-50"
                       >
                         Cancel
                       </button>
@@ -142,24 +142,24 @@ const MyAppointments = () => {
           {/* ── Past / Cancelled appointments ────── */}
           {past.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-3">
+              <h2 className="text-lg font-semibold text-gray-400 tracking-wide mb-3">
                 Past / Cancelled ({past.length})
               </h2>
               <div className="space-y-3">
                 {past.map((appt) => (
                   <div
                     key={appt._id}
-                    className="bg-white rounded-lg shadow-sm border border-gray-100 p-5 flex flex-col sm:flex-row sm:items-center gap-4 opacity-60"
+                    className="bg-[#1f2937]/50 rounded-xl border border-gray-800/50 p-5 flex flex-col sm:flex-row sm:items-center gap-4 opacity-60"
                   >
                     <div className="flex-1 space-y-1">
-                      <p className="text-sm font-semibold text-gray-800">
+                      <p className="text-sm font-semibold text-gray-300">
                         {appt.businessId?.name || "Unknown Business"}
                       </p>
                       <p className="text-sm text-gray-500">
                         {formatDateTime(appt.appointmentDateTime)}
                       </p>
                       {appt.notes && (
-                        <p className="text-xs text-gray-400 italic">
+                        <p className="text-xs text-gray-600 italic">
                           "{appt.notes}"
                         </p>
                       )}

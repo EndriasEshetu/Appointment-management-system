@@ -32,11 +32,11 @@ const RescheduleModal = ({ appointment, onClose }) => {
   const minDate = tomorrow.toISOString().split("T")[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-[#1f2937] rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden border border-gray-700">
         {/* Header */}
-        <div className="px-6 py-4 bg-indigo-600">
-          <h2 className="text-lg font-bold text-white">
+        <div className="px-6 py-4 bg-[#10b981]">
+          <h2 className="text-lg font-bold text-white tracking-wide">
             Reschedule Appointment
           </h2>
         </div>
@@ -58,19 +58,19 @@ const RescheduleModal = ({ appointment, onClose }) => {
           )}
 
           {/* Current info */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <p className="text-xs text-gray-400 uppercase font-semibold mb-2">
+          <div className="bg-[#111827] p-4 rounded-lg border border-gray-800">
+            <p className="text-xs text-gray-500 uppercase font-semibold mb-2 tracking-wider">
               Current Appointment
             </p>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Business</span>
-              <span className="font-medium text-gray-800">
+              <span className="text-gray-400">Business</span>
+              <span className="font-medium text-white">
                 {appointment.businessId?.name || "Unknown"}
               </span>
             </div>
             <div className="flex justify-between text-sm mt-1">
-              <span className="text-gray-500">Date & Time</span>
-              <span className="font-medium text-gray-800">
+              <span className="text-gray-400">Date & Time</span>
+              <span className="font-medium text-white">
                 {existingDate.toLocaleString([], {
                   dateStyle: "medium",
                   timeStyle: "short",
@@ -81,7 +81,7 @@ const RescheduleModal = ({ appointment, onClose }) => {
 
           {/* New date */}
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               New Date
             </label>
             <input
@@ -90,13 +90,13 @@ const RescheduleModal = ({ appointment, onClose }) => {
               onChange={(e) => setDate(e.target.value)}
               min={minDate}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-[#111827] border border-gray-700 text-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981] [color-scheme:dark]"
             />
           </div>
 
           {/* New time */}
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               New Time
             </label>
             <input
@@ -104,7 +104,7 @@ const RescheduleModal = ({ appointment, onClose }) => {
               value={time}
               onChange={(e) => setTime(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-[#111827] border border-gray-700 text-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981] [color-scheme:dark]"
             />
           </div>
 
@@ -115,7 +115,7 @@ const RescheduleModal = ({ appointment, onClose }) => {
               disabled={
                 rescheduleMutation.isPending || rescheduleMutation.isSuccess
               }
-              className="flex-1 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+              className="flex-1 px-4 py-2 bg-[#10b981] text-white text-sm font-medium rounded-lg hover:bg-emerald-600 disabled:opacity-50 transition-colors shadow-lg shadow-emerald-900/20"
             >
               {rescheduleMutation.isPending
                 ? "Rescheduling..."
@@ -125,7 +125,7 @@ const RescheduleModal = ({ appointment, onClose }) => {
               type="button"
               onClick={onClose}
               disabled={rescheduleMutation.isPending}
-              className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
+              className="flex-1 px-4 py-2 bg-gray-700 text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>

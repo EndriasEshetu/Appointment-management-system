@@ -49,10 +49,10 @@ const AdminDashboard = () => {
     <div>
       {/* ── Header ───────────────────────────────── */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-2xl font-bold text-white tracking-wide">
           Appointment Dashboard
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-gray-400 mt-1">
           Manage and track all your customer appointments
         </p>
       </div>
@@ -62,18 +62,18 @@ const AdminDashboard = () => {
         {["pending", "confirmed", "paid", "cancelled"].map((status) => {
           const count = appointments.filter((a) => a.status === status).length;
           const colors = {
-            pending: "border-yellow-400 bg-yellow-50",
-            confirmed: "border-blue-400 bg-blue-50",
-            paid: "border-green-400 bg-green-50",
-            cancelled: "border-red-400 bg-red-50",
+            pending: "border-yellow-500 bg-yellow-900/20 text-yellow-500",
+            confirmed: "border-blue-500 bg-blue-900/20 text-blue-400",
+            paid: "border-[#10b981] bg-[#10b981]/20 text-[#10b981]",
+            cancelled: "border-red-500 bg-red-900/20 text-red-400",
           };
           return (
             <div
               key={status}
-              className={`p-4 rounded-lg border-l-4 ${colors[status]}`}
+              className={`p-4 rounded-xl border-l-4 ${colors[status]}`}
             >
-              <p className="text-2xl font-bold text-gray-800">{count}</p>
-              <p className="text-sm text-gray-600 capitalize">{status}</p>
+              <p className="text-2xl font-bold">{count}</p>
+              <p className="text-sm capitalize opacity-80">{status}</p>
             </div>
           );
         })}
@@ -86,12 +86,12 @@ const AdminDashboard = () => {
           placeholder="Search by customer name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-4 py-2 bg-[#1f2937] border border-gray-700 text-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981]"
         />
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 bg-[#1f2937] border border-gray-700 text-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#10b981] focus:border-[#10b981]"
         >
           <option value="all">All Statuses</option>
           <option value="pending">Pending</option>
@@ -111,38 +111,38 @@ const AdminDashboard = () => {
 
       {/* ── Table ────────────────────────────────── */}
       {isLoading ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-gray-400">
           Loading appointments...
         </div>
       ) : isError ? (
-        <div className="text-center py-12 text-red-500">
+        <div className="text-center py-12 text-red-400">
           Failed to load appointments.
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-200">
-          <p className="text-gray-500">No appointments found.</p>
+        <div className="text-center py-12 bg-[#1f2937] rounded-xl shadow-xl border border-gray-800">
+          <p className="text-gray-400">No appointments found.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-x-auto">
+        <div className="bg-[#1f2937] rounded-xl shadow-xl border border-gray-800 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+              <tr className="bg-[#111827] border-b border-gray-800">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Customer
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Email
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Date
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Time
                 </th>
-                <th className="text-left px-6 py-3 font-semibold text-gray-600">
+                <th className="text-left px-6 py-4 font-semibold text-gray-300">
                   Status
                 </th>
-                <th className="text-right px-6 py-3 font-semibold text-gray-600">
+                <th className="text-right px-6 py-4 font-semibold text-gray-300">
                   Actions
                 </th>
               </tr>
@@ -151,18 +151,18 @@ const AdminDashboard = () => {
               {filtered.map((appt) => (
                 <tr
                   key={appt._id}
-                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                  className="border-b border-gray-800 hover:bg-[#374151]/50 transition-colors"
                 >
-                  <td className="px-6 py-4 font-medium text-gray-800">
+                  <td className="px-6 py-4 font-medium text-white">
                     {appt.customerId?.name || "Unknown"}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td className="px-6 py-4 text-gray-400">
                     {appt.customerId?.email || "—"}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td className="px-6 py-4 text-gray-400">
                     {formatDate(appt.appointmentDateTime)}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td className="px-6 py-4 text-gray-400">
                     {formatTime(appt.appointmentDateTime)}
                   </td>
                   <td className="px-6 py-4">
@@ -177,7 +177,7 @@ const AdminDashboard = () => {
                               handleStatusChange(appt._id, "confirmed")
                             }
                             disabled={statusMutation.isPending}
-                            className="px-3 py-1 text-xs font-medium rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors disabled:opacity-50"
+                            className="px-3 py-1.5 text-xs font-medium rounded-md bg-blue-900/30 text-blue-400 hover:bg-blue-900/50 border border-transparent hover:border-blue-800 transition-colors disabled:opacity-50"
                           >
                             Confirm
                           </button>
@@ -189,7 +189,7 @@ const AdminDashboard = () => {
                               handleStatusChange(appt._id, "paid")
                             }
                             disabled={statusMutation.isPending}
-                            className="px-3 py-1 text-xs font-medium rounded-md bg-green-100 text-green-700 hover:bg-green-200 transition-colors disabled:opacity-50"
+                            className="px-3 py-1.5 text-xs font-medium rounded-md bg-[#10b981]/20 text-[#10b981] hover:bg-[#10b981]/30 border border-transparent hover:border-[#10b981]/50 transition-colors disabled:opacity-50"
                           >
                             Mark Paid
                           </button>
@@ -200,7 +200,7 @@ const AdminDashboard = () => {
                             handleStatusChange(appt._id, "cancelled")
                           }
                           disabled={statusMutation.isPending}
-                          className="px-3 py-1 text-xs font-medium rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition-colors disabled:opacity-50"
+                          className="px-3 py-1.5 text-xs font-medium rounded-md bg-red-900/30 text-red-400 hover:bg-red-900/50 border border-transparent hover:border-red-800 transition-colors disabled:opacity-50"
                         >
                           Cancel
                         </button>
