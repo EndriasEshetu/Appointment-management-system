@@ -7,15 +7,17 @@
   },
   "keywords": [],
   "type": "module",
-  "author": "", 
+  "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@trigger.dev/sdk": "^4.4.5",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.6.1"
+    "mongoose": "^9.6.1",
+    "resend": "^6.12.3"
   }
 }
