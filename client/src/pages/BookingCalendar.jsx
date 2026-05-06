@@ -22,6 +22,7 @@ const BookingCalendar = () => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentView, setCurrentView] = useState("week");
 
   // Generate calendar events from the recurring weekly availability slots
   // We generate 60 days of slots around the currently viewed date
@@ -69,6 +70,10 @@ const BookingCalendar = () => {
 
   const handleNavigate = (newDate) => {
     setCurrentDate(newDate);
+  };
+
+  const handleView = (newView) => {
+    setCurrentView(newView);
   };
 
   const handleSelectEvent = (event) => {
@@ -128,7 +133,8 @@ const BookingCalendar = () => {
             eventPropGetter={eventStyleGetter}
             date={currentDate}
             onNavigate={handleNavigate}
-            defaultView="week"
+            view={currentView}
+            onView={handleView}
             views={["month", "week", "day"]}
             step={30}
             timeslots={2}
