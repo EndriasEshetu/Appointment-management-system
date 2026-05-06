@@ -21,20 +21,22 @@ const BookingCalendar = () => {
   const { data: slots = [], isLoading, isError } = useAvailableSlots();
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   // Generate calendar events from the recurring weekly availability slots
+  // We generate 60 days of slots around the currently viewed date
   const events = useMemo(() => {
     if (!slots || slots.length === 0) return [];
 
     const generatedEvents = [];
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const startOfCurrentWeek = startOfWeek(today);
+    const windowStart = new Date(currentDate);
+    windowStart.setDate(windowStart.getDate() - 30); // 30 days before current view
+    windowStart.setHours(0, 0, 0, 0);
 
-    // Generate slots for 4 weeks (28 days) starting from the beginning of the week
-    for (let i = 0; i < 28; i++) {
-      const date = new Date(startOfCurrentWeek);
-      date.setDate(startOfCurrentWeek.getDate() + i);
+    // Generate slots for 90 days total around the current view
+    for (let i = 0; i < 90; i++) {
+      const date = new Date(windowStart);
+      date.setDate(windowStart.getDate() + i);
       const dayOfWeek = date.getDay();
 
       // Find templates for this day of the week
@@ -63,7 +65,11 @@ const BookingCalendar = () => {
     }
 
     return generatedEvents;
-  }, [slots]);
+  }, [slots, currentDate]);
+
+  const handleNavigate = (newDate) => {
+    setCurrentDate(newDate);
+  };
 
   const handleSelectEvent = (event) => {
     // Prevent booking past slots
@@ -120,6 +126,8 @@ const BookingCalendar = () => {
             style={{ height: 600 }}
             onSelectEvent={handleSelectEvent}
             eventPropGetter={eventStyleGetter}
+            date={currentDate}
+            onNavigate={handleNavigate}
             defaultView="week"
             views={["month", "week", "day"]}
             step={30}
