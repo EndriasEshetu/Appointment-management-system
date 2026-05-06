@@ -1,14 +1,4 @@
 import api from "./authApi";
-import useAuthStore from "../store/useAuthStore";
-
-// Attach token to every request via interceptor
-api.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
 
 // ─── Availability API ───────────────────────────────────────
 export const getMyAvailability = async () => {

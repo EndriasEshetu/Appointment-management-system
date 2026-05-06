@@ -1,4 +1,5 @@
 import axios from "axios";
+import useAuthStore from "../store/useAuthStore";
 
 // Create an Axios instance
 const api = axios.create({
@@ -6,6 +7,15 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+// Attach token to every request via interceptor
+api.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 // Auth API calls
