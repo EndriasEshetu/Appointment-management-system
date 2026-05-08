@@ -17,10 +17,9 @@ export const getMyAppointments = async () => {
   return data;
 };
 
-export const rescheduleAppointment = async ({ id, date, time }) => {
+export const rescheduleAppointment = async ({ id, appointmentDateTime }) => {
   const { data } = await api.put(`/appointments/${id}/reschedule`, {
-    date,
-    time,
+    appointmentDateTime,
   });
   return data;
 };

@@ -5,16 +5,26 @@ const RescheduleModal = ({ appointment, onClose }) => {
   // Parse existing appointmentDateTime
   const existingDate = new Date(appointment.appointmentDateTime);
   
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  // Pre-fill with existing values
+  const existingDateStr = existingDate.toISOString().split("T")[0];
+  const existingTimeStr = existingDate.toTimeString().slice(0, 5);
+
+  const [date, setDate] = useState(existingDateStr);
+  const [time, setTime] = useState(existingTimeStr);
   const rescheduleMutation = useRescheduleAppointment();
 
   const handleReschedule = (e) => {
     e.preventDefault();
     
-    // Combine date and time
-    const dateTimeString = `${date}T${time}:00`;
-    const appointmentDateTime = new Date(dateTimeString);
+    // Create Date object from local date and time inputs
+    const [year, month, day] = date.split("-").map(Number);
+    const [hours, minutes] = time.split(":").map(Number);
+    const appointmentDateTime = new Date(year, month - 1, day, hours, minutes);
+
+    if (appointmentDateTime < new Date()) {
+      alert("Cannot reschedule to a past date/time.");
+      return;
+    }
 
     rescheduleMutation.mutate(
       { id: appointment._id, appointmentDateTime },
@@ -26,10 +36,9 @@ const RescheduleModal = ({ appointment, onClose }) => {
     );
   };
 
-  // Get tomorrow's date as minimum selectable date
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const minDate = tomorrow.toISOString().split("T")[0];
+  // Get today's date as minimum selectable date
+  const today = new Date();
+  const minDate = today.toISOString().split("T")[0];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">

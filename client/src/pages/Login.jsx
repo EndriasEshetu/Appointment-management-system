@@ -15,6 +15,11 @@ const Login = () => {
     loginMutation.mutate({ email, password });
   };
 
+  const handleGoogleLogin = () => {
+    alert("Google Login is integrated via the UI. In a production environment, this would redirect to Google's OAuth consent screen.");
+    // Simulation: you could trigger a login here if you had a provider
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#21486b]">
       <button
@@ -127,7 +132,8 @@ const Login = () => {
         {/* Google Button */}
         <button
           type="button"
-          className="w-full flex items-center justify-center gap-3 py-2.5 bg-[#111827] border border-gray-700 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium text-gray-300 hover:text-white focus:outline-none"
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-3 py-2.5 bg-[#111827] border border-gray-700 rounded-md hover:bg-gray-800 active:bg-gray-900 transition-all text-sm font-medium text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-700"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -149,6 +155,7 @@ const Login = () => {
           </svg>
           Continue with Google
         </button>
+
 
         {/* Footer Link */}
         <p className="text-[13px] text-center text-gray-400 pt-2">

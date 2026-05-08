@@ -24,6 +24,10 @@ const Register = () => {
     registerMutation.mutate({ name, email, password, role });
   };
 
+  const handleGoogleLogin = () => {
+    alert("Google Registration is integrated via the UI. In a production environment, this would redirect to Google's OAuth consent screen.");
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#21486b]">
       <button
@@ -211,7 +215,8 @@ const Register = () => {
         {/* Google Button */}
         <button
           type="button"
-          className="w-full flex items-center justify-center gap-3 py-2.5 bg-[#111827] border border-gray-700 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium text-gray-300 hover:text-white focus:outline-none"
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-3 py-2.5 bg-[#111827] border border-gray-700 rounded-md hover:bg-gray-800 active:bg-gray-900 transition-all text-sm font-medium text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-700"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -233,6 +238,7 @@ const Register = () => {
           </svg>
           Continue with Google
         </button>
+
 
         {/* Footer Link */}
         <p className="text-[13px] text-center text-gray-400 pt-2">
