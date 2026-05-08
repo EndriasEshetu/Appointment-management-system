@@ -1,4 +1,6 @@
 import Appointment from "../models/Appointment.js";
+import User from "../models/User.js";
+import { sendReminderEmail } from "../services/emailService.js";
 
 // @desc    Get all appointments for the logged-in business admin
 // @route   GET /api/appointments/business
@@ -183,6 +185,7 @@ export const rescheduleAppointment = async (req, res) => {
 
     appointment.appointmentDateTime = parsedDateTime;
     appointment.status = "pending"; // reset to pending after reschedule
+    appointment.reminderSent = false; // reset so a new reminder is sent for the new time
     const updated = await appointment.save();
 
     await updated.populate("businessId", "name email");
