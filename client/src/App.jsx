@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import useAuthStore from "./store/useAuthStore";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Homepage from "./pages/Homepage";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AvailabilityManager from "./pages/AvailabilityManager";
@@ -63,7 +64,7 @@ function App() {
                   <Navigate to="/customer/book" />
                 )
               ) : (
-                <Navigate to="/login" />
+                <Homepage />
               )
             }
           />
@@ -77,4 +78,3 @@ function App() {
 }
 
 export default App;
-
