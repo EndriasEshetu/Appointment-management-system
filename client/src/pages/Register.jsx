@@ -37,7 +37,7 @@ const Register = () => {
         Back to home
       </button>
       <div className="w-full max-w-100 p-8 space-y-6 bg-[#1f2937] rounded-xl shadow-2xl text-white font-sans my-8">
-        {/* Header */}
+    
         <div className="text-center space-y-1">
           <h2 className="text-2xl font-bold tracking-wide">Create Account</h2>
           <p className="text-sm text-gray-400">
@@ -45,7 +45,6 @@ const Register = () => {
           </p>
         </div>
 
-        {/* Error message */}
         {registerMutation.isError && (
           <div className="p-3 text-sm text-red-400 bg-red-900/30 border border-red-800 rounded-md">
             {registerMutation.error.response?.data?.message ||
@@ -54,7 +53,6 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">Full Name</label>
             <div className="relative">
@@ -63,6 +61,8 @@ const Register = () => {
               </div>
               <input
                 type="text"
+                name="name"
+                autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -72,7 +72,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Email */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">
               Email Address
@@ -83,6 +82,8 @@ const Register = () => {
               </div>
               <input
                 type="email"
+                name="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -92,7 +93,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Password */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">Password</label>
             <div className="relative">
@@ -100,6 +100,8 @@ const Register = () => {
                 <Lock className="h-4 w-4 text-gray-400" />
               </div>
               <input
+                name="password"
+                autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -121,7 +123,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Confirm Password */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">
               Confirm Password
@@ -131,6 +132,8 @@ const Register = () => {
                 <Lock className="h-4 w-4 text-gray-400" />
               </div>
               <input
+                name="confirm-password"
+                autoComplete="new-password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -152,7 +155,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Account Type */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">
               Account Type
@@ -172,7 +174,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Terms */}
           <div className="flex items-center text-[13px] pt-1 pb-2">
             <label className="flex items-center space-x-2 cursor-pointer text-gray-300">
               <input
@@ -195,7 +196,6 @@ const Register = () => {
             </label>
           </div>
 
-          {/* Register Button */}
           <button
             type="submit"
             disabled={registerMutation.isPending}
@@ -205,14 +205,12 @@ const Register = () => {
           </button>
         </form>
 
-        {/* OR Divider */}
         <div className="relative flex items-center py-2">
           <div className="grow border-t border-gray-700"></div>
           <span className="shrink-0 mx-4 text-xs text-gray-500">OR</span>
           <div className="grow border-t border-gray-700"></div>
         </div>
 
-        {/* Google Button */}
         <button
           type="button"
           onClick={handleGoogleLogin}
@@ -239,8 +237,6 @@ const Register = () => {
           Continue with Google
         </button>
 
-
-        {/* Footer Link */}
         <p className="text-[13px] text-center text-gray-400 pt-2">
           Already have an account?{" "}
           <Link

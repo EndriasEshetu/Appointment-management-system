@@ -17,11 +17,8 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50">
         <Routes>
-          {/* ── Public routes ──────────────────────── */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* ── Admin routes ──────────────────────── */}
           <Route
             path="/admin"
             element={
@@ -37,7 +34,6 @@ function App() {
             <Route path="availability" element={<AvailabilityManager />} />
           </Route>
 
-          {/* ── Customer routes ───────────────────── */}
           <Route
             path="/customer"
             element={
@@ -53,7 +49,6 @@ function App() {
             <Route path="my-appointments" element={<MyAppointments />} />
           </Route>
 
-          {/* ── Root redirect based on role ────────── */}
           <Route
             path="/"
             element={
@@ -69,7 +64,6 @@ function App() {
             }
           />
 
-          {/* ── Catch-all ─────────────────────────── */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

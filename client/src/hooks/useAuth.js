@@ -9,10 +9,9 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
-      // data contains _id, name, email, role, token
-      setCredentials(data, data.token);
-      navigate("/"); // Redirect to dashboard/home after login
+    onSuccess: (data, variables) => {
+      setCredentials(data, data.token, variables.rememberMe);
+      navigate("/"); 
     },
   });
 };
@@ -24,8 +23,8 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      setCredentials(data, data.token);
-      navigate("/"); // Redirect to dashboard/home after register
+      setCredentials(data, data.token, true);
+      navigate("/");
     },
   });
 };

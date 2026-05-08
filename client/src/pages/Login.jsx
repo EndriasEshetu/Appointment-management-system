@@ -12,12 +12,11 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginMutation.mutate({ email, password });
+    loginMutation.mutate({ email, password, rememberMe });
   };
 
   const handleGoogleLogin = () => {
     alert("Google Login is integrated via the UI. In a production environment, this would redirect to Google's OAuth consent screen.");
-    // Simulation: you could trigger a login here if you had a provider
   };
 
   return (
@@ -29,15 +28,14 @@ const Login = () => {
         Back to home
       </button>
       <div className="w-full max-w-100 p-8 space-y-6 bg-[#1f2937] rounded-xl shadow-2xl text-white font-sans">
-        {/* Header */}
-        <div className="text-center space-y-1">
+             <div className="text-center space-y-1">
           <h2 className="text-2xl font-bold tracking-wide">Welcome Back!</h2>
           <p className="text-sm text-gray-400">
             Login to continue your appointment journey
           </p>
         </div>
 
-        {/* Error message */}
+     
         {loginMutation.isError && (
           <div className="p-3 text-sm text-red-400 bg-red-900/30 border border-red-800 rounded-md">
             {loginMutation.error.response?.data?.message || "An error occurred"}
@@ -45,7 +43,6 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">
               Email Address
@@ -56,6 +53,8 @@ const Login = () => {
               </div>
               <input
                 type="email"
+                name="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -65,7 +64,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Password */}
           <div className="space-y-1.5">
             <label className="block text-[13px] text-gray-300">Password</label>
             <div className="relative">
@@ -73,6 +71,8 @@ const Login = () => {
                 <Lock className="h-4 w-4 text-gray-400" />
               </div>
               <input
+                name="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -93,7 +93,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Remember me & Forgot Password */}
           <div className="flex items-center justify-between text-[13px] pt-1 pb-2">
             <label className="flex items-center space-x-2 cursor-pointer text-gray-300 hover:text-white">
               <input
@@ -112,7 +111,6 @@ const Login = () => {
             </a>
           </div>
 
-          {/* Login Button */}
           <button
             type="submit"
             disabled={loginMutation.isPending}
@@ -122,14 +120,12 @@ const Login = () => {
           </button>
         </form>
 
-        {/* OR Divider */}
         <div className="relative flex items-center py-2">
           <div className="grow border-t border-gray-700"></div>
           <span className="shrink-0 mx-4 text-xs text-gray-500">OR</span>
           <div className="grow border-t border-gray-700"></div>
         </div>
 
-        {/* Google Button */}
         <button
           type="button"
           onClick={handleGoogleLogin}
@@ -156,9 +152,8 @@ const Login = () => {
           Continue with Google
         </button>
 
-
-        {/* Footer Link */}
-        <p className="text-[13px] text-center text-gray-400 pt-2">
+  
+          <p className="text-[13px] text-center text-gray-400 pt-2">
           Don't have an account?{" "}
           <Link
             to="/register"
