@@ -1,6 +1,5 @@
 import api from "./authApi";
 
-// ─── Availability API ───────────────────────────────────────
 export const getMyAvailability = async () => {
   const { data } = await api.get("/availability/me");
   return data;
@@ -16,7 +15,6 @@ export const updateAvailability = async ({ id, ...slotData }) => {
   return data;
 };
 
-// ─── Appointment API ────────────────────────────────────────
 export const getBusinessAppointments = async () => {
   const { data } = await api.get("/appointments/business");
   return data;

@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+/* Override react-big-calendar toolbar button colors for dark theme */
+.rbc-toolbar button {
+  color: white !important;
+}
+
+.rbc-toolbar button:hover,
+.rbc-toolbar button:focus {
+  color: black !important;
+}
+
+.rbc-toolbar button.rbc-active {
+  color: black !important;
+}

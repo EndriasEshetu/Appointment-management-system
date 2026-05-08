@@ -98,7 +98,7 @@ const AvailabilityManager = () => {
 
   return (
     <div>
-      {/* ── Header ───────────────────────────────── */}
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-wide">
@@ -118,7 +118,7 @@ const AvailabilityManager = () => {
         )}
       </div>
 
-      {/* ── Success / Error messages ─────────────── */}
+      {/* Success / Error messages  */}
       {successMsg && (
         <div className="mb-4 p-3 text-sm text-green-700 bg-green-100 rounded-lg">
           {successMsg}
@@ -130,7 +130,7 @@ const AvailabilityManager = () => {
         </div>
       )}
 
-      {/* ── Add / Edit Form ──────────────────────── */}
+      {/* Add / Edit Form */}
       {showForm && (
         <form
           onSubmit={handleSubmit}
@@ -226,7 +226,7 @@ const AvailabilityManager = () => {
         </form>
       )}
 
-      {/* ── Slots List ───────────────────────────── */}
+      {/* Slots List */}
       {isLoading ? (
         <div className="text-center py-12 text-gray-400">Loading slots...</div>
       ) : isError ? (
