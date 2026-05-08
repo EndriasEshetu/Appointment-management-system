@@ -18,23 +18,23 @@ const Homepage = () => {
 
       <main className="flex-1">
         <section className="max-w-7xl mx-auto px-6 md:px-12 py-16">
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Appointment <br />
                 Management Made Easy
               </h1>
 
-              <p className="text-lg text-blue-100/80 mb-8 max-w-lg">
+              <p className="text-lg text-blue-100/80 mb-8 max-w-lg mx-auto lg:mx-0">
                 Book, manage, and track your appointments in one place.
                 <br />
                 Save time. Stay organized. Never miss an appointment.
               </p>
 
-              <div className="flex flex-wrap gap-4 mb-10">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-10">
                 <a
                   href="/login"
-                  className="flex items-center gap-2 px-8 py-4 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold shadow-lg transition"
+                  className="flex items-center gap-2 px-8 py-4 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold shadow-lg transition transform hover:-translate-y-1"
                 >
                   <User size={18} />
                   Login
@@ -42,7 +42,7 @@ const Homepage = () => {
 
                 <a
                   href="/register"
-                  className="flex items-center gap-2 px-8 py-4 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-semibold shadow-lg transition"
+                  className="flex items-center gap-2 px-8 py-4 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-semibold shadow-lg transition transform hover:-translate-y-1"
                 >
                   <CheckCircle size={18} />
                   Register
@@ -50,33 +50,34 @@ const Homepage = () => {
               </div>
 
               {/* MINI FEATURES */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <FeatureMiniCard
                   icon={<Calendar size={22} />}
                   title="Easy Booking"
-                  desc="Book appointments in just a few clicks."
+                  desc="Book in just a few clicks."
                   color="bg-blue-500/20"
                 />
                 <FeatureMiniCard
                   icon={<Bell size={22} />}
                   title="Reminders"
-                  desc="Get timely reminders so you never miss."
+                  desc="Timely reminders."
                   color="bg-green-500/20"
                 />
                 <FeatureMiniCard
                   icon={<Shield size={22} />}
-                  title="Secure & Private"
-                  desc="Your data is safe and protected."
+                  title="Secure"
+                  desc="Data is protected."
                   color="bg-purple-500/20"
                 />
               </div>
             </div>
 
             {/* RIGHT MOCKUP */}
-            <div className="bg-[#1f2937] backdrop-blur-lg border border-white/10 rounded-3xl shadow-2xl p-6">
-              <div className="grid grid-cols-[220px_1fr] min-h-105">
+            <div className="bg-[#1f2937] backdrop-blur-lg border border-white/10 rounded-3xl shadow-2xl overflow-hidden hidden sm:block">
+              <div className="grid grid-cols-[200px_1fr] md:grid-cols-[220px_1fr] min-h-[400px]">
                 {/* Sidebar */}
-                <div className="border-r border-white/10 pr-4">
+                <div className="border-r border-white/10 p-4 bg-black/20">
+                  <div className="w-8 h-8 rounded-full bg-blue-500 mb-6 mx-auto md:mx-0"></div>
                   <MockNavItem icon={<LayoutDashboard size={18} />} active>
                     Dashboard
                   </MockNavItem>
@@ -91,35 +92,35 @@ const Homepage = () => {
                 </div>
 
                 {/* Dashboard content */}
-                <div className="pl-6">
+                <div className="p-6">
                   <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-semibold text-white">
-                      Upcoming Appointments
+                    <h3 className="text-lg font-semibold text-white">
+                      Appointments
                     </h3>
-                    <span className="text-blue-400 text-sm cursor-pointer">
+                    <span className="text-blue-400 text-xs cursor-pointer">
                       View all
                     </span>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <AppointmentCard
-                      name="Admin"
-                      date="Thu, May 7, 2026"
+                      name="John Doe"
+                      date="May 7, 2026"
                       time="9:00 AM"
                       status="Confirmed"
                       statusColor="bg-blue-500/20 text-blue-300"
                     />
                     <AppointmentCard
-                      name="Admin"
-                      date="Sun, May 10, 2026"
-                      time="9:00 AM"
+                      name="Jane Smith"
+                      date="May 10, 2026"
+                      time="11:30 AM"
                       status="Confirmed"
                       statusColor="bg-blue-500/20 text-blue-300"
                     />
                     <AppointmentCard
-                      name="Endrias"
-                      date="Mon, Jun 1, 2026"
-                      time="8:00 AM"
+                      name="Alice Johnson"
+                      date="Jun 1, 2026"
+                      time="2:00 PM"
                       status="Pending"
                       statusColor="bg-yellow-500/20 text-yellow-300"
                     />
@@ -129,6 +130,7 @@ const Homepage = () => {
             </div>
           </div>
         </section>
+
 
         {/* FEATURES SECTION */}
         <section className="bg-[#14314f]/60 py-16">

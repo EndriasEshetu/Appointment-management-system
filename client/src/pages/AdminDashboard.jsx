@@ -7,7 +7,7 @@ import StatusBadge from "../components/StatusBadge";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import enUS from "date-fns/locale/en-US";
-import { LayoutList, Calendar as CalendarIcon, Download, Search, Filter } from "lucide-react";
+import { LayoutList, Calendar as CalendarIcon, Download, Search, Filter, Clock } from "lucide-react";
 
 // Setup the localizer for react-big-calendar
 const locales = {
@@ -203,73 +203,131 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Table */}
-              <div className="bg-[#1f2937] rounded-xl shadow-xl border border-gray-800 overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-[#111827] border-b border-gray-800">
-                      <th className="text-left px-6 py-4 font-semibold text-gray-300">Customer</th>
-                      <th className="text-left px-6 py-4 font-semibold text-gray-300">Contact</th>
-                      <th className="text-left px-6 py-4 font-semibold text-gray-300">DateTime</th>
-                      <th className="text-left px-6 py-4 font-semibold text-gray-300">Status</th>
-                      <th className="text-right px-6 py-4 font-semibold text-gray-300">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-800">
-                    {filtered.length === 0 ? (
-                      <tr>
-                        <td colSpan="5" className="px-6 py-10 text-center text-gray-500">
-                          No appointments matching your filters.
-                        </td>
+              {/* Responsive List/Table */}
+              <div className="bg-[#1f2937] rounded-xl shadow-xl border border-gray-800 overflow-hidden">
+                {/* Desktop Table View */}
+                <div className="hidden lg:block overflow-x-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead>
+                      <tr className="bg-[#111827] border-b border-gray-800">
+                        <th className="px-6 py-4 font-semibold text-gray-300">Customer</th>
+                        <th className="px-6 py-4 font-semibold text-gray-300">DateTime</th>
+                        <th className="px-6 py-4 font-semibold text-gray-300">Status</th>
+                        <th className="px-6 py-4 text-right font-semibold text-gray-300">Actions</th>
                       </tr>
-                    ) : (
-                      filtered.map((appt) => (
-                        <tr key={appt._id} className="hover:bg-[#374151]/30 transition-colors">
-                          <td className="px-6 py-4">
-                            <p className="font-medium text-white">{appt.customerId?.name || "Unknown"}</p>
-                          </td>
-                          <td className="px-6 py-4 text-gray-400">{appt.customerId?.email || "—"}</td>
-                          <td className="px-6 py-4 text-gray-400">
-                            <div>{formatDate(appt.appointmentDateTime)}</div>
-                            <div className="text-xs opacity-60">{formatTime(appt.appointmentDateTime)}</div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <StatusBadge status={appt.status} />
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <div className="flex justify-end gap-2">
-                              {appt.status === "pending" && (
-                                <button
-                                  onClick={() => handleStatusChange(appt._id, "confirmed")}
-                                  className="px-3 py-1.5 text-xs font-medium rounded-md bg-blue-900/30 text-blue-400 hover:bg-blue-900/50 border border-blue-800/50 transition-colors"
-                                >
-                                  Confirm
-                                </button>
-                              )}
-                              {appt.status !== "paid" && appt.status !== "cancelled" && (
-                                <button
-                                  onClick={() => handleStatusChange(appt._id, "paid")}
-                                  className="px-3 py-1.5 text-xs font-medium rounded-md bg-[#10b981]/20 text-[#10b981] hover:bg-[#10b981]/30 border border-[#10b981]/30 transition-colors"
-                                >
-                                  Mark Paid
-                                </button>
-                              )}
-                              {appt.status !== "cancelled" && (
-                                <button
-                                  onClick={() => handleStatusChange(appt._id, "cancelled")}
-                                  className="px-3 py-1.5 text-xs font-medium rounded-md bg-red-900/30 text-red-400 hover:bg-red-900/50 border border-red-800/50 transition-colors"
-                                >
-                                  Cancel
-                                </button>
-                              )}
-                            </div>
+                    </thead>
+                    <tbody className="divide-y divide-gray-800">
+                      {filtered.length === 0 ? (
+                        <tr>
+                          <td colSpan="4" className="px-6 py-12 text-center text-gray-500">
+                            No appointments found.
                           </td>
                         </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+                      ) : (
+                        filtered.map((appt) => (
+                          <tr key={appt._id} className="hover:bg-white/5 transition-colors">
+                            <td className="px-6 py-4">
+                              <p className="font-medium text-white">{appt.customerId?.name || "Unknown"}</p>
+                              <p className="text-xs text-gray-500">{appt.customerId?.email}</p>
+                            </td>
+                            <td className="px-6 py-4">
+                              <p className="text-gray-300">{formatDate(appt.appointmentDateTime)}</p>
+                              <p className="text-xs text-gray-500">{formatTime(appt.appointmentDateTime)}</p>
+                            </td>
+                            <td className="px-6 py-4">
+                              <StatusBadge status={appt.status} />
+                            </td>
+                            <td className="px-6 py-4 text-right">
+                              <div className="flex justify-end gap-2">
+                                {appt.status === "pending" && (
+                                  <button
+                                    onClick={() => handleStatusChange(appt._id, "confirmed")}
+                                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-all"
+                                  >
+                                    Confirm
+                                  </button>
+                                )}
+                                {appt.status !== "paid" && appt.status !== "cancelled" && (
+                                  <button
+                                    onClick={() => handleStatusChange(appt._id, "paid")}
+                                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all"
+                                  >
+                                    Mark Paid
+                                  </button>
+                                )}
+                                {appt.status !== "cancelled" && (
+                                  <button
+                                    onClick={() => handleStatusChange(appt._id, "cancelled")}
+                                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
+                                  >
+                                    Cancel
+                                  </button>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Mobile/Tablet Card View */}
+                <div className="lg:hidden divide-y divide-gray-800">
+                  {filtered.length === 0 ? (
+                    <div className="p-8 text-center text-gray-500">No appointments found.</div>
+                  ) : (
+                    filtered.map((appt) => (
+                      <div key={appt._id} className="p-4 space-y-4 hover:bg-white/5 transition-colors">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <p className="font-bold text-white">{appt.customerId?.name || "Unknown"}</p>
+                            <p className="text-xs text-gray-500">{appt.customerId?.email}</p>
+                          </div>
+                          <StatusBadge status={appt.status} />
+                        </div>
+                        <div className="flex gap-4 text-xs text-gray-400">
+                          <div className="flex items-center gap-1">
+                            <CalendarIcon size={12} />
+                            {formatDate(appt.appointmentDateTime)}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock size={12} />
+                            {formatTime(appt.appointmentDateTime)}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-800">
+                          {appt.status === "pending" && (
+                            <button
+                              onClick={() => handleStatusChange(appt._id, "confirmed")}
+                              className="flex-1 px-3 py-2 text-xs font-semibold rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                            >
+                              Confirm
+                            </button>
+                          )}
+                          {appt.status !== "paid" && appt.status !== "cancelled" && (
+                            <button
+                              onClick={() => handleStatusChange(appt._id, "paid")}
+                              className="flex-1 px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                            >
+                              Mark Paid
+                            </button>
+                          )}
+                          {appt.status !== "cancelled" && (
+                            <button
+                              onClick={() => handleStatusChange(appt._id, "cancelled")}
+                              className="flex-1 px-3 py-2 text-xs font-semibold rounded-lg bg-red-500/10 text-red-400 border border-red-500/20"
+                            >
+                              Cancel
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
+
             </>
           ) : (
             /* Calendar View */

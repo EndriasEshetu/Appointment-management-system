@@ -242,67 +242,88 @@ const AvailabilityManager = () => {
         </div>
       ) : (
         <div className="bg-[#1f2937] rounded-xl shadow-xl border border-gray-800 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-[#111827] border-b border-gray-800">
-                <th className="text-left px-6 py-4 font-semibold text-gray-300">
-                  Day
-                </th>
-                <th className="text-left px-6 py-4 font-semibold text-gray-300">
-                  Start Time
-                </th>
-                <th className="text-left px-6 py-4 font-semibold text-gray-300">
-                  End Time
-                </th>
-                <th className="text-left px-6 py-4 font-semibold text-gray-300">
-                  Status
-                </th>
-                <th className="text-right px-6 py-4 font-semibold text-gray-300">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {slots.map((slot) => (
-                <tr
-                  key={slot._id}
-                  className="border-b border-gray-800 hover:bg-[#374151]/50 transition-colors"
-                >
-                  <td className="px-6 py-4 font-medium text-white">
-                    {DAYS[slot.dayOfWeek]}
-                  </td>
-                  <td className="px-6 py-4 text-gray-400">{slot.startTime}</td>
-                  <td className="px-6 py-4 text-gray-400">{slot.endTime}</td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                        slot.isAvailable
-                          ? "bg-[#10b981]/20 text-[#10b981]"
-                          : "bg-gray-800 text-gray-400"
-                      }`}
-                    >
-                      {slot.isAvailable ? "Available" : "Unavailable"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right space-x-2 flex justify-end">
-                    <button
-                      onClick={() => toggleAvailability(slot)}
-                      className="px-3 py-1.5 text-xs font-medium rounded-md bg-[#111827] border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors"
-                    >
-                      {slot.isAvailable ? "Disable" : "Enable"}
-                    </button>
-                    <button
-                      onClick={() => startEdit(slot)}
-                      className="px-3 py-1.5 text-xs font-medium rounded-md bg-blue-900/30 border border-transparent hover:border-blue-800 text-blue-400 hover:bg-blue-900/50 transition-colors"
-                    >
-                      Edit
-                    </button>
-                  </td>
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-[#111827] border-b border-gray-800">
+                  <th className="px-6 py-4 font-semibold text-gray-300">Day</th>
+                  <th className="px-6 py-4 font-semibold text-gray-300">Start Time</th>
+                  <th className="px-6 py-4 font-semibold text-gray-300">End Time</th>
+                  <th className="px-6 py-4 font-semibold text-gray-300">Status</th>
+                  <th className="px-6 py-4 text-right font-semibold text-gray-300">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-800">
+                {slots.map((slot) => (
+                  <tr key={slot._id} className="hover:bg-white/5 transition-colors">
+                    <td className="px-6 py-4 font-medium text-white">{DAYS[slot.dayOfWeek]}</td>
+                    <td className="px-6 py-4 text-gray-400">{slot.startTime}</td>
+                    <td className="px-6 py-4 text-gray-400">{slot.endTime}</td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
+                        slot.isAvailable ? "bg-emerald-500/10 text-emerald-400" : "bg-gray-800 text-gray-500"
+                      }`}>
+                        {slot.isAvailable ? "Available" : "Unavailable"}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => toggleAvailability(slot)}
+                          className="px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:bg-gray-700 transition-all"
+                        >
+                          {slot.isAvailable ? "Disable" : "Enable"}
+                        </button>
+                        <button
+                          onClick={() => startEdit(slot)}
+                          className="px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-all"
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden divide-y divide-gray-800">
+            {slots.map((slot) => (
+              <div key={slot._id} className="p-4 space-y-3 hover:bg-white/5 transition-colors">
+                <div className="flex justify-between items-center">
+                  <p className="font-bold text-white">{DAYS[slot.dayOfWeek]}</p>
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    slot.isAvailable ? "bg-emerald-500/10 text-emerald-400" : "bg-gray-800 text-gray-500"
+                  }`}>
+                    {slot.isAvailable ? "Available" : "Unavailable"}
+                  </span>
+                </div>
+                <div className="flex gap-4 text-sm text-gray-400">
+                  <p><span className="text-gray-500">From:</span> {slot.startTime}</p>
+                  <p><span className="text-gray-500">To:</span> {slot.endTime}</p>
+                </div>
+                <div className="flex gap-2 pt-2">
+                  <button
+                    onClick={() => toggleAvailability(slot)}
+                    className="flex-1 py-2 text-xs font-medium rounded-lg bg-gray-800 border border-gray-700 text-gray-300"
+                  >
+                    {slot.isAvailable ? "Disable" : "Enable"}
+                  </button>
+                  <button
+                    onClick={() => startEdit(slot)}
+                    className="flex-1 py-2 text-xs font-medium rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
       )}
     </div>
   );
