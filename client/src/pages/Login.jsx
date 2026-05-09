@@ -16,9 +16,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    alert(
-      "Google Login is integrated via the UI. In a production environment, this would redirect to Google's OAuth consent screen.",
-    );
+    alert("Google Login is not implemented in this demo.");
   };
 
   return (
