@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useRegister } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { User, Mail, Lock, Eye, EyeOff, ChevronDown } from "lucide-react";
+import {
+  User,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ChevronDown,
+  ArrowLeft,
+} from "lucide-react";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -25,19 +33,21 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    alert("Google Registration is integrated via the UI. In a production environment, this would redirect to Google's OAuth consent screen.");
+    alert(
+      "Google Registration is integrated via the UI. In a production environment, this would redirect to Google's OAuth consent screen.",
+    );
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#21486b]">
-      <button
-        onClick={() => (window.location.href = "/")}
-        className="absolute top-4 left-4 px-4 py-2 bg-cyan-950 hover:bg-cyan-800 text-white font-semibold rounded-md shadow-lg transition"
-      >
-        Back to home
-      </button>
       <div className="w-full max-w-100 p-8 space-y-6 bg-[#1f2937] rounded-xl shadow-2xl text-white font-sans my-8">
-    
+        <button
+          onClick={() => (window.location.href = "/")}
+          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-2"
+        >
+          <ArrowLeft size={16} />
+          <span className="text-sm">Back to home</span>
+        </button>
         <div className="text-center space-y-1">
           <h2 className="text-2xl font-bold tracking-wide">Create Account</h2>
           <p className="text-sm text-gray-400">

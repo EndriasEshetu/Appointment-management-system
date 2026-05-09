@@ -4,8 +4,16 @@ import useAuthStore from "../store/useAuthStore";
 import { Menu, X, Calendar, Clock, LogOut } from "lucide-react";
 
 const navItems = [
-  { to: "/admin/dashboard", label: "Appointments", icon: <Calendar size={20} /> },
-  { to: "/admin/availability", label: "Availability", icon: <Clock size={20} /> },
+  {
+    to: "/admin/dashboard",
+    label: "Appointments",
+    icon: <Calendar size={20} />,
+  },
+  {
+    to: "/admin/availability",
+    label: "Availability",
+    icon: <Clock size={20} />,
+  },
 ];
 
 const AdminLayout = () => {
@@ -17,7 +25,7 @@ const AdminLayout = () => {
       {/* ── Mobile Overlay ───────────────────────── */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -33,7 +41,7 @@ const AdminLayout = () => {
             <h1 className="text-xl font-bold text-white tracking-wide">
               Admin Panel
             </h1>
-            <p className="text-xs text-gray-400 mt-1 truncate max-w-[180px]">
+            <p className="text-xs text-gray-400 mt-1 truncate max-w-45">
               {user?.email}
             </p>
           </div>
@@ -103,4 +111,3 @@ const AdminLayout = () => {
 };
 
 export default AdminLayout;
-

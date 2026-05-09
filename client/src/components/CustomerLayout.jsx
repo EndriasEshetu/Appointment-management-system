@@ -4,8 +4,16 @@ import useAuthStore from "../store/useAuthStore";
 import { Menu, X, Calendar, ClipboardList, LogOut } from "lucide-react";
 
 const navItems = [
-  { to: "/customer/book", label: "Book Appointment", icon: <Calendar size={20} /> },
-  { to: "/customer/my-appointments", label: "My Appointments", icon: <ClipboardList size={20} /> },
+  {
+    to: "/customer/book",
+    label: "Book Appointment",
+    icon: <Calendar size={20} />,
+  },
+  {
+    to: "/customer/my-appointments",
+    label: "My Appointments",
+    icon: <ClipboardList size={20} />,
+  },
 ];
 
 const CustomerLayout = () => {
@@ -17,7 +25,7 @@ const CustomerLayout = () => {
       {/* ── Mobile Overlay ───────────────────────── */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -33,7 +41,7 @@ const CustomerLayout = () => {
             <h1 className="text-xl font-bold text-white tracking-wide">
               My Portal
             </h1>
-            <p className="text-xs text-gray-400 mt-1 truncate max-w-[180px]">
+            <p className="text-xs text-gray-400 mt-1 truncate max-w-45">
               {user?.name}
             </p>
           </div>
@@ -103,4 +111,3 @@ const CustomerLayout = () => {
 };
 
 export default CustomerLayout;
-
