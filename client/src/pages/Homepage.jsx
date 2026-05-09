@@ -79,10 +79,10 @@ const Homepage = () => {
                 <div className="border-r border-white/10 p-4 bg-black/20">
                   <div className="w-8 h-8 rounded-full bg-blue-500 mb-6 mx-auto md:mx-0"></div>
                   <MockNavItem icon={<LayoutDashboard size={18} />} active>
-                    Dashboard
+                    Appointments
                   </MockNavItem>
                   <MockNavItem icon={<Calendar size={18} />}>
-                    Appointments
+                    Availability
                   </MockNavItem>
                   <MockNavItem icon={<Clock size={18} />}>Calendar</MockNavItem>
                   <MockNavItem icon={<User size={18} />}>Profile</MockNavItem>
@@ -104,7 +104,7 @@ const Homepage = () => {
 
                   <div className="space-y-3">
                     <AppointmentCard
-                      name="John Doe"
+                      name="Endrias Eshetu"
                       date="May 7, 2026"
                       time="9:00 AM"
                       status="Confirmed"
@@ -130,7 +130,6 @@ const Homepage = () => {
             </div>
           </div>
         </section>
-
 
         {/* FEATURES SECTION */}
         <section className="bg-[#14314f]/60 py-16">

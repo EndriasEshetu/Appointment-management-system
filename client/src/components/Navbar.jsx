@@ -22,10 +22,7 @@ export default function Navbar() {
           <a href="/login" className="hover:text-white transition-colors">
             Login
           </a>
-          <a
-            href="/register"
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
-          >
+          <a href="/register" className="hover:text-white transition-colors">
             Register
           </a>
         </div>
